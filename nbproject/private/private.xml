@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/1"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/1">
+        <file>file:/home/almazko/NetBeansProjects/OutCaptcha/Library/OutCaptcha/Captcha.php</file>
+        <file>file:/home/almazko/NetBeansProjects/OutCaptcha/Library/Curl/Curl.php</file>
+        <file>file:/home/almazko/NetBeansProjects/OutCaptcha/Library/OutCaptcha/Provider.php</file>
+        <file>file:/home/almazko/NetBeansProjects/OutCaptcha/Library/OutCaptcha/ProviderGoogleImages.php</file>
+        <file>file:/home/almazko/NetBeansProjects/OutCaptcha/Library/OutCaptcha/SimpleGdImageBuilder.php</file>
+        <file>file:/home/almazko/NetBeansProjects/OutCaptcha/Library/OutCaptcha/Transport.php</file>
+        <file>file:/home/almazko/NetBeansProjects/OutCaptcha/Library/OutCaptcha/FileDownloader.php</file>
+        <file>file:/home/almazko/NetBeansProjects/OutCaptcha/index.php</file>
+        <file>file:/home/almazko/NetBeansProjects/OutCaptcha/Library/OutCaptcha/ImageBuilder.php</file>
+    </open-files>
+</project-private>
