@@ -68,4 +68,10 @@ class ProviderGoogleImages extends Provider {
         $stub[] = 'http://t0.gstatic.com/images?q=tbn:ANd9GcRt9IXhKw6oVh8jgPSk6Sdb-HfofaTSxCY6vH20-04U-W-yB6x3';
         return $stub;
     }
+    
+    protected function _downloadImages(array $urls) {
+        foreach($urls as $url) {
+            
+        }
+    }
 }

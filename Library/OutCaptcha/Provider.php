@@ -12,6 +12,7 @@ namespace Library\OutCaptcha;
  */
 abstract class Provider {
     
+    protected $_pathForImages;
     /**
      *
      * @param string $query
@@ -20,4 +21,21 @@ abstract class Provider {
      * @return array Array of urls images
      */
     abstract public function getImages($query, $selectCount, $setCount);
+    
+    /**
+     *
+     * @param string $pathForImages
+     * @return Provider 
+     */
+    public function setPathForImages($pathForImages) {
+        $this->_pathForImages = $pathForImages;
+        return $this;
+    }
+    
+    public function getPathForImages() {
+        if (!$this->_pathForImages) {
+            return '/tmp';
+        }
+        return $this->_pathForImages;
+    }
 }

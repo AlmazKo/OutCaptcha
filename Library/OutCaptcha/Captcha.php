@@ -48,7 +48,6 @@ class Captcha {
     /**
      * Получить капчу (ссылку на картинку)
      * @param string $ask
-     * @param string $answer
      * @param array $options 
      * @return ImageCaptcha
      */
@@ -62,7 +61,8 @@ class Captcha {
                  ? $options['size_set'] 
                  : self::$_defaultSizeSet;   
         
-        $images = $this->_provider->getImages($ask, $numberOfImages, $sizeSet);
+        $images = $this->_provider->setPathForImages('/var/www/images/')
+                                ->getImages($ask, $numberOfImages, $sizeSet);
 
         $captcha = $this->getImageBuilder()
                               ->setPathForImages('/var/www/images/')
