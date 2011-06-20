@@ -28,8 +28,8 @@ class ProviderGoogleImages extends Provider {
     public function __construct($pathForImages, array $options = array()) {
         
         $this->_pathForImages = $pathForImages;
-        $this->_crawler = new \Library\Curl\Curl();
-        $opt = array (CURLOPT_HEADER => true,
+        $this->_crawler = new \Library\Curl\MultiCurl();
+        $opt = array (//CURLOPT_HEADER => true,
                       CURLOPT_RETURNTRANSFER => true,
                       CURLOPT_FOLLOWLOCATION => true,
                       CURLOPT_TIMEOUT => 20);
@@ -61,6 +61,9 @@ class ProviderGoogleImages extends Provider {
         shuffle($set);
         
         $images = array_slice($set, 0, $selectCount);
+        
+        var_dump($this->_downloadImages($images));
+        die('!!!');
         return $images;
         
         $stub[] = 'http://t3.gstatic.com/images?q=tbn:ANd9GcRjn8VlTG6VVF0pdubv0RSpsfRa6koFrPRt1qtIczvICRMUHmODeQ';
@@ -70,8 +73,6 @@ class ProviderGoogleImages extends Provider {
     }
     
     protected function _downloadImages(array $urls) {
-        foreach($urls as $url) {
-            
-        }
+        return $this->_crawler->downloadFiles($urls, $this->getPathForImages());
     }
 }

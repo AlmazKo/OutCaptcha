@@ -77,11 +77,15 @@ class Curl implements \Library\OutCaptcha\FileDownloader {
         } else {
             return false;
         }
+        $this->_downloadFile($file, $path);
+        return true;
+    }
+    
+    protected function _downloadFile($file, $path = null, $mode = 'a') {
         @unlink($path);
-        $fd = fopen($path, "a");
+        $fd = fopen($path, $mode);
         fwrite($fd, $file);
         fclose($fd);
-        return true;
     }
     
     /**
