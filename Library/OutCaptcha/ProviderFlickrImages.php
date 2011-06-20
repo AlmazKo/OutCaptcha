@@ -12,10 +12,10 @@ namespace Library\OutCaptcha;
  *
  * @author almazko
  */
-class ProviderGoogleImages extends Provider {
+class ProviderFlickrImages extends Provider {
     
-    const MAX_SIZE_SET = 11;
-    protected static $_url = 'http://www.google.com/search?hl=ru&biw=1920&bih=968&gbv=2&tbm=isch&sa=1&q=%QUERY%&oq=%QUERY%&aq=f&aqi=g10&aql=&gs_sm=e&gs_upl=29882l30776l0l7l6l0l0l0l0l225l1080l0.4.2';
+    const MAX_SIZE_SET = 10;
+    protected static $_url = 'http://www.flickr.com/search/?w=all&q=%QUERY%&m=text';
     protected $_crawler;
     
     protected $_pathForImages;
@@ -46,10 +46,10 @@ class ProviderGoogleImages extends Provider {
         $targetUrl = str_replace('%QUERY%', urlencode($query), self::$_url);
         $response = $this->_crawler->requestGet($targetUrl)->getResponseBody();
        // $response = file_get_contents(BASE_PATH . '/Library/OutCaptcha/mockGoogleImages.html');
-        preg_match_all('/http:\/\/[a-z0-9]+\.gstatic\.com\/images\?q\=tbn[^\'\"]+/', $response, $match);
-        
+        preg_match_all('/http:\/\/[a-z0-9-]+\.static\.flickr\.com\/[^\'\"]+/', $response, $match);
+
         $findedImages = $match[0];
-        
+
         if (!$findedImages) {
             throw new \Exception('Not found images');
         }

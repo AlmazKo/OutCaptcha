@@ -46,9 +46,9 @@ class MultiCurl extends Curl {
     }
     
     function _downloadFile($content, $dir = null, $fileName = null) {
-            $this->_parseResponse(false);
-            $content = $this->_responseRaw;
-            var_dump($content);
+//            $this->_parseResponse(false);
+//            $content = $this->_responseRaw;
+
         if (null === $dir) {
             $dir = $this->_pathToDownloadedFiles;
         }
@@ -93,9 +93,9 @@ class MultiCurl extends Curl {
                         $ch = $info['handle'];
                         // забираем содержимое
                         $this->_info = curl_getinfo($ch);
-                        var_dump($info);
-                        $this->_responseRaw = curl_multi_getcontent($ch);
-                        call_user_func($callback, array('1'));
+                        //$this->_responseRaw = curl_multi_getcontent($ch);
+                               
+                        call_user_func($callback, curl_multi_getcontent($ch));
                         // удаляем поток из мультикурла
                        // var_dump(curl_getinfo($ch));
                         curl_multi_remove_handle($this->_mh, $ch);

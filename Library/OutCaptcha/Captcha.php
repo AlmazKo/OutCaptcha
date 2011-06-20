@@ -27,7 +27,7 @@ class Captcha {
     protected $_imageBuilder;
     
     public function __construct(array $options = array()) {
-        $this->setProvider(new ProviderGoogleImages(\BASE_PATH . '/tmp/images/'));
+        $this->setProvider(new ProviderYahooImages(\BASE_PATH . '/tmp/images/'));
     }
     
     public function setProvider(Provider $provider) {

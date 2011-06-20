@@ -12,10 +12,10 @@ namespace Library\OutCaptcha;
  *
  * @author almazko
  */
-class ProviderGoogleImages extends Provider {
+class ProviderYahooImages extends Provider {
     
-    const MAX_SIZE_SET = 11;
-    protected static $_url = 'http://www.google.com/search?hl=ru&biw=1920&bih=968&gbv=2&tbm=isch&sa=1&q=%QUERY%&oq=%QUERY%&aq=f&aqi=g10&aql=&gs_sm=e&gs_upl=29882l30776l0l7l6l0l0l0l0l225l1080l0.4.2';
+    const MAX_SIZE_SET = 10;
+    protected static $_url = 'http://www.bing.com/images/search?q=%QUERY%&go=&form=QBLH&filt=all#x0y0';
     protected $_crawler;
     
     protected $_pathForImages;
@@ -32,7 +32,8 @@ class ProviderGoogleImages extends Provider {
         $opt = array (//CURLOPT_HEADER => true,
                       CURLOPT_RETURNTRANSFER => true,
                       CURLOPT_FOLLOWLOCATION => true,
-                      CURLOPT_TIMEOUT => 20);
+                      CURLOPT_TIMEOUT => 20,
+                      CURLOPT_USERAGENT => \Library\Curl\UserAgent::getString());
         $this->_crawler->setOptArray($opt);
     }
     
@@ -46,10 +47,11 @@ class ProviderGoogleImages extends Provider {
         $targetUrl = str_replace('%QUERY%', urlencode($query), self::$_url);
         $response = $this->_crawler->requestGet($targetUrl)->getResponseBody();
        // $response = file_get_contents(BASE_PATH . '/Library/OutCaptcha/mockGoogleImages.html');
-        preg_match_all('/http:\/\/[a-z0-9]+\.gstatic\.com\/images\?q\=tbn[^\'\"]+/', $response, $match);
-        
+        preg_match_all('/http\:\/\/[^\'\"]+/', $response, $match);
+        #preg_match_all('/http:\/\/[a-z0-9-]+\.mm\.bing\.net\/[^\'\"]+/', $response, $match);
+  //      http://ts2.mm.bing.net/images/thumbnail.aspx?q=950693212957&amp;id=6e51985ce4a9c3a023fd53f9fa41b8f3
         $findedImages = $match[0];
-        
+
         if (!$findedImages) {
             throw new \Exception('Not found images');
         }
