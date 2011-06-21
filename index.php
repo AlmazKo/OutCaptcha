@@ -44,7 +44,7 @@
         </style>
     </head>
     <body>
-        <div id="block_captcha">
+        <div id="block_captcha"> <?=$time?>
             <?php include_once $tpl?>
         </div>
     </body>

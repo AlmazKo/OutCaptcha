@@ -19,8 +19,11 @@ if (!empty($_REQUEST)) {
         $tpl .= 'error.php';
     }
 } else {
-    $options = array('number_images' => 3);
-    $captcha = new Captcha();
+    $options = array(
+        'number_images'  => 3,
+        'image_provider' => 'google',
+        'path_images'    => '/var/www/images/');
+    $captcha = new Captcha($options);
     $dic = new Dictionary('ru');
     $word = $dic->getRandom();
     $captcha = $captcha->get($word['question'], $options);

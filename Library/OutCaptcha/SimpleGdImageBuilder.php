@@ -66,12 +66,12 @@ class SimpleGdImageBuilder extends ImageBuilder {
     }
     
     public function construct(array $options = array()) {
-        $generalImage = \imagecreatetruecolor(460, 200) or die("Cannot Initialize new GD image stream");
-        $background = \imagecolorallocate($generalImage, 109,163,189);
-        $background2 = \imagecolorallocate($generalImage, 99, 99, 99);
-        $background3 = \imagecolorallocate($generalImage, 255, 255, 255);
+        $generalImage = imagecreatetruecolor(460, 200) or die("Cannot Initialize new GD image stream");
+        $background = imagecolorallocate($generalImage, 109,163,189);
+        $background2 = imagecolorallocate($generalImage, 99, 199, 99);
+        $background3 = imagecolorallocate($generalImage, 255, 255, 255);
         
-        \imagefill($generalImage, 0, 0, $background); 
+        imagefill($generalImage, 0, 0, $background); 
         imagecolortransparent($generalImage, $background);
         
         $xDst = 10;
@@ -80,26 +80,30 @@ class SimpleGdImageBuilder extends ImageBuilder {
         
         $i = 0;
         foreach ($this->_images as $path) {
-            $image = \imagecreatefromjpeg($path);
-            $imageWidth = \imagesx($image);
-            $imageHeight = \imagesy($image);
-            $imageWithBorder = \imagecreatetruecolor($imageWidth + 10, $imageHeight + 10);
-            \imagefill($imageWithBorder, 0, 0, $background3); 
-            \imagecopy($imageWithBorder, $image, 5, 5, 0, 0, $imageWidth, $imageHeight);
+            $image = imagecreatefromjpeg($path);
+            $imageWidth = imagesx($image);
+            $imageHeight = imagesy($image);
+            $imageWithBorder = imagecreatetruecolor($imageWidth + 10, $imageHeight + 10);
+            imagefill($imageWithBorder, 0, 0, $background3); 
+            imagecopy($imageWithBorder, $image, 5, 5, 0, 0, $imageWidth, $imageHeight);
             
-           # $modImage = \imagerotate($imageWithBorder, rand(-10,10), $background2);
-            $modImage = $imageWithBorder;
+            if (isset($options['rotate'])) {
+                $modImage = imagerotate($imageWithBorder, rand(-10,10), $background2);
+            } else {
+                $modImage = $imageWithBorder;
+            }
+
             imagecolortransparent($modImage, $background2);
-            $imageWidth = \imagesx($modImage);
-            $imageHeight = \imagesy($modImage);
-            \imagecopy($generalImage, $modImage, $template[$i]['x'], $template[$i]['y'], 0, 0, $imageWidth, $imageHeight);
-            $xDst += \imagesx($image);
+            $imageWidth = imagesx($modImage);
+            $imageHeight = imagesy($modImage);
+            imagecopy($generalImage, $modImage, $template[$i]['x'], $template[$i]['y'], 0, 0, $imageWidth, $imageHeight);
+            $xDst += imagesx($image);
             $i++;
         }
         $path = $this->_pathForImages.  uniqid();
-        $this->_captcha = new ImageCaptcha($path, \imagesx($generalImage), \imagesy($generalImage));
-        \imagepng($generalImage, $path);
-        \imagedestroy($generalImage);
+        $this->_captcha = new ImageCaptcha($path, imagesx($generalImage), imagesy($generalImage));
+        imagepng($generalImage, $path);
+        imagedestroy($generalImage);
         return $this;
     }
     

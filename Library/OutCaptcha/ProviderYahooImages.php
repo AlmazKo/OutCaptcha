@@ -52,7 +52,7 @@ class ProviderYahooImages extends Provider {
   //      http://ts2.mm.bing.net/images/thumbnail.aspx?q=950693212957&amp;id=6e51985ce4a9c3a023fd53f9fa41b8f3
         $findedImages = $match[0];
 
-        if (!$findedImages) { 
+        if (!$findedImages) {
             throw new \Exception('Not found images');
         }
         if ($sizeSet) {

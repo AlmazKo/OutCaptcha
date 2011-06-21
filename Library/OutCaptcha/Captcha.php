@@ -27,7 +27,13 @@ class Captcha {
     protected $_imageBuilder;
     
     public function __construct(array $options = array()) {
-        $this->setProvider(new ProviderYahooImages(\BASE_PATH . '/tmp/images/'));
+        $this->setProvider(new ProviderGoogleImages(\BASE_PATH . '/tmp/images/'));
+//        if (!empty($options['image_provider'])) {
+//            $classProvider = "Provider" . ucfirst($options['image_provider']) . "Images";
+//            $this->setProvider(new $classProvider(\BASE_PATH . '/tmp/images/'));
+//        } else {
+//            $this->setProvider(new ProviderGoogleImages(\BASE_PATH . '/tmp/images/'));
+//        }
     }
     
     public function setProvider(Provider $provider) {

@@ -37,11 +37,6 @@ class ProviderGoogleImages extends Provider {
     }
     
     public function getImages($query, $selectCount = 3, $sizeSet = self::MAX_SIZE_SET) {
-         
-//        $sizeSet = ($sizeSet > self::MAX_SIZE_SET) ? self::MAX_SIZE_SET : $sizeSet;
-//        $selectCount = ($selectCount < 0) ? 1 : $selectCount;
-//        $selectCount = ($selectCount > $sizeSet) ? $sizeSet : $selectCount;
-        
 
         $targetUrl = str_replace('%QUERY%', urlencode($query), self::$_url);
         $response = $this->_crawler->requestGet($targetUrl)->getResponseBody();

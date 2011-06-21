@@ -58,8 +58,8 @@ class UniversalClassLoader
 {
     private $namespaces = array();
     private $prefixes = array();
-    private $namespaceFallbacks = array();
-    private $prefixFallbacks = array();
+    private $namespaceFallback = array();
+    private $prefixFallback = array();
 
     /**
      * Gets the configured namespaces.
@@ -86,9 +86,9 @@ class UniversalClassLoader
      *
      * @return array An array of directories
      */
-    public function getNamespaceFallbacks()
+    public function getNamespaceFallback()
     {
-        return $this->namespaceFallbacks;
+        return $this->namespaceFallback;
     }
 
     /**
@@ -96,33 +96,33 @@ class UniversalClassLoader
      *
      * @return array An array of directories
      */
-    public function getPrefixFallbacks()
+    public function getPrefixFallback()
     {
-        return $this->prefixFallbacks;
+        return $this->prefixFallback;
     }
 
     /**
      * Registers the directory to use as a fallback for namespaces.
      *
-     * @param array $dirs An array of directories
+     * @param string|array $dirs A directory path or an array of directories
      *
      * @api
      */
-    public function registerNamespaceFallbacks(array $dirs)
+    public function registerNamespaceFallback($dirs)
     {
-        $this->namespaceFallbacks = $dirs;
+        $this->namespaceFallback = (array) $dirs;
     }
 
     /**
      * Registers the directory to use as a fallback for class prefixes.
      *
-     * @param array $dirs An array of directories
+     * @param string|array $dirs A directory path or an array of directories
      *
      * @api
      */
-    public function registerPrefixFallbacks(array $dirs)
+    public function registerPrefixFallback($dirs)
     {
-        $this->prefixFallbacks = $dirs;
+        $this->prefixFallback = (array) $dirs;
     }
 
     /**
@@ -231,7 +231,7 @@ class UniversalClassLoader
                 }
             }
 
-            foreach ($this->namespaceFallbacks as $dir) {
+            foreach ($this->namespaceFallback as $dir) {
                 $file = $dir.DIRECTORY_SEPARATOR.str_replace('\\', DIRECTORY_SEPARATOR, $class).'.php';
                 if (file_exists($file)) {
                     return $file;
@@ -250,7 +250,7 @@ class UniversalClassLoader
                 }
             }
 
-            foreach ($this->prefixFallbacks as $dir) {
+            foreach ($this->prefixFallback as $dir) {
                 $file = $dir.DIRECTORY_SEPARATOR.str_replace('_', DIRECTORY_SEPARATOR, $class).'.php';
                 if (file_exists($file)) {
                     return $file;

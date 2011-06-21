@@ -19,6 +19,7 @@ class MultiCurl extends Curl {
     protected $_defaultOptions = array();
     
     protected $_result = array();
+    protected $_totalTime = 0;
     
     public function __construct() {
         parent::__construct();
@@ -70,6 +71,7 @@ class MultiCurl extends Curl {
     }
     
     protected function _run($callback) {
+        $timeStart = microtime();
         // количество активных потоков
         $active = null;
         // запускаем выполнение потоков
@@ -107,6 +109,7 @@ class MultiCurl extends Curl {
             }
         }
     }
+    
     public function __destruct() {
         parent::__destruct();
         curl_multi_close($this->_mh);
