@@ -1,8 +1,9 @@
 <?php
 
-use \OutCaptcha\Captcha;
+use OutCaptcha\OutCaptcha;
 use OutCaptcha\Dictionary;
 use OutCaptcha\Options;
+use OutCaptcha\Image;
 
 $begin = microtime(true);
 
@@ -20,17 +21,16 @@ if (!$_POST) {
     $options->captchaBaseImage = array(460, 200);
     $captcha = new OutCaptcha($options);
     $dic = new Dictionary('ru');
-    $word = $dic->getRandom();
+    list($question, $answer) = $dic->getRandom();
     $decorator = function(Image $image){
-        $image->addBorder(4);
+        $image->addBorder(5);
         $image->rotate(rand(-10,10));
     };
-    $captcha = $captcha->generate($word['question'], $decorator);
+    $path = $captcha->generate($question, $decorator);
 
-    $path = $captcha->getPath();
-    $webPath = str_replace('/tmp/outcaptcha/', 'images/outcaptcha/', $path);
+    $webPath = str_replace('/tmp/outcaptcha/', '/images/outcaptcha/', $path);
     $_SESSION['path'] = $webPath;
-    $_SESSION['answer'] = $word['answer'];
+    $_SESSION['answer'] = $answer;
     $tpl = 'start.php';
 } else {
     $validAnswer = $_SESSION['answer'];
@@ -45,4 +45,4 @@ if (!$_POST) {
 }
 
 $tpl = 'tpl/' . $tpl;
-$time = (microtime(true) - $begin);
+$time = round(microtime(true) - $begin, 4) . ' sec';

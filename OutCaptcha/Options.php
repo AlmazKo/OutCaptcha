@@ -12,7 +12,7 @@ namespace OutCaptcha;
 class Options {
     public $imagesNumber = 3;
     public $sizeSet = 10;
-    public $provider = 'Google';
+    public $imagesProvider = 'Google';
     public $downloadsPath;
     public $generatedCaptchaPath;
     

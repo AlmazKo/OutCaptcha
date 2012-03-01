@@ -49,8 +49,9 @@ class OutCaptcha {
     public function getImageProvider()
     {
         if (!$this->imagesProvider) {
-            $classProvider = "Provider" . ucfirst($options->imagesProvider) . "Images";
-            $this->imagesProvider = new $classProvider($options->downloadsPath);
+            $classProvider = "OutCaptcha\ImagesProvider\\". ucfirst($this->options->imagesProvider);
+            $crawler = new ECurlAdapter();
+            $this->imagesProvider = new $classProvider($crawler, $this->options->downloadsPath);
         }
         return $this->imagesProvider;
     }
@@ -77,12 +78,12 @@ class OutCaptcha {
     public function generate($ask, $decorator = null)
     {
 
-        $images = $this->imagesProvider->getImages($ask, $this->options->imagesNumber, $this->options->sizeSet);
+        $images = $this->getImageProvider()->getImages($ask, $this->options->imagesNumber, $this->options->sizeSet);
 
         $builder = $this->getImageBuilder();
         $builder->construct($this->options->captchaBaseImage, $images, $decorator);
 
-        return $builder->getResult();
+        return $builder->getPath();
     }
 
 }

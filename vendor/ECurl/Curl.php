@@ -6,7 +6,7 @@
  */
 namespace ECurl;
 
-class Curl implements \Library\OutCaptcha\FileDownloader {
+class Curl {
 
     public
         $_referer = 'http://www.google.com',

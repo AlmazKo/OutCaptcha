@@ -34,7 +34,11 @@ abstract class AbstractImagesProvider {
         $this->cralwer = $crawler;
         
         if (null === $downloadsPath) {
-            $this->downloadsPath = sys_get_temp_dir(); 
+            $downloadsPath  = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'outcaptcha' . DIRECTORY_SEPARATOR;
+            if (!is_dir($downloadsPath)) {
+                mkdir($downloadsPath);
+            }
+            $this->downloadsPath = $downloadsPath; 
         } else {
             $this->downloadsPath = $downloadsPath;
         }

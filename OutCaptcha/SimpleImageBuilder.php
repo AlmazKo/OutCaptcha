@@ -77,16 +77,16 @@ class SimpleImageBuilder extends ImageBuilder {
             $decorator($image);
 
             $baseImage->addImage($image, $template[$i]['x'], $template[$i]['y']);
-            $xDst += $imageWidth;
+            $xDst += $image->getWidth() + rand(5, 15);
             $i++;
         }
         $path = $this->_pathForImages.  uniqid();
-        $this->_captcha = new ImageCaptcha($path, imagesx($generalImage), imagesy($generalImage));
-        $baseImage->save();
-        return $this;
+        $baseImage->save($path);
+        $this->path = $path;
+        return  $path;
     }
     
-    public function getResult() {
-        return $this->_captcha;
+    public function getPath() {
+        return $this->path;
     }
 }

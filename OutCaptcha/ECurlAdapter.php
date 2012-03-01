@@ -7,6 +7,7 @@
 
 namespace OutCaptcha;
 
+use ECurl\MultiCurl;
 /**
  * Description of FilleDownloaderImpl
  * @author almazko <a.s.suslov@gmail.com>
@@ -14,7 +15,7 @@ namespace OutCaptcha;
 class ECurlAdapter implements Crawler {
 
     public function __construct() {
-        $this->adaptee = new ECurl\MultiCurl();
+        $this->adaptee = new MultiCurl();
                 $opt = array(//CURLOPT_HEADER => true,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_FOLLOWLOCATION => true,

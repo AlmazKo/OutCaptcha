@@ -1,12 +1,10 @@
 <?php
-defined('BASE_PATH')
-    || define('BASE_PATH', realpath(dirname(__FILE__)));
-
 #path to autoloader
-require_once BASE_PATH . '/Library/ClassLoader/UniversalClassLoader.php';
+require_once __DIR__ . '/vendor/Symfony/Component/ClassLoader/UniversalClassLoader.php';
 
-$classLoader = new Symfony\Component\ClassLoader\UniversalClassLoader('/tmp', 'classes');
+$classLoader = new \Symfony\Component\ClassLoader\UniversalClassLoader();
 $classLoader->registerNamespaces(array(
-    'Library' => BASE_PATH
+    'OutCaptcha' => __DIR__,
+    'ECurl' => __DIR__ . '/vendor'
 ));
 $classLoader->register();

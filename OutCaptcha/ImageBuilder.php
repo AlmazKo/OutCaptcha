@@ -32,6 +32,6 @@ abstract class ImageBuilder {
     
     abstract public function construct($baseImage, array $imagePaths, $decorator = null);
     
-    abstract public function getResult();
+    abstract public function getPath();
     
 }
