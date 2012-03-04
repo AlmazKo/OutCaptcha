@@ -15,7 +15,7 @@ interface Image {
 
     public function addBorder($value, array $color);
     
-    public function rotate($value);
+    public function rotate($angle);
     
     public function resize($value);
     

@@ -26,7 +26,7 @@ class OutCaptchaTest extends \PHPUnit_Framework_TestCase {
        $expectedResult = uniqid();
        $imageBuilderMock
              ->expects($this->any())
-             ->method('getResult')
+             ->method('getPath')
              ->will($this->returnValue($expectedResult));
        
        $outCaptcha->setImageBuilder($imageBuilderMock);

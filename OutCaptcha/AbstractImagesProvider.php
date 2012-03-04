@@ -12,9 +12,12 @@ namespace OutCaptcha;
  *
  * @author almazko
  */
-abstract class AbstractImagesProvider {
+abstract class AbstractImagesProvider implements ImagesProvider {
 
     const QUERY_TEMPLATE = '%QUERY%';
+    const LANGUAGE_TEMPLATE = '%LANG%';
+    
+    protected static $defaultLanguage = 'en';
     /**
      * @var string
      */
@@ -44,6 +47,13 @@ abstract class AbstractImagesProvider {
         }
     }
     
+    /**
+     * @param string $lang 
+     */
+    public static function setDefaultLanguage($lang)
+    {
+        static::$defaultLanguage = $lang;
+    }
     /**
      * {@inheritdoc }
      */

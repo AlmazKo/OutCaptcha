@@ -64,21 +64,39 @@ class SimpleImageBuilder extends ImageBuilder {
     public function construct($baseImage, array $imagePaths, $decorator = null) {
         
         $baseImage = new GdImage($baseImage);
-        $baseImage->setBackgroundColor(array(0,0,0));
-       
-//        imagecolortransparent($generalImage, $background);
-        
+
+        $posX = 0;
+        $posY = 0;
         $xDst = 10;
+        $prevImage = 0;
         $template = $this->_getTemplate(count($imagePaths));
         
         $i = 0;
         foreach ($imagePaths as $path) {
             $image = new GdImage($path);
-            $decorator($image);
+            $usersShift = $decorator($image);
 
-            $baseImage->addImage($image, $template[$i]['x'], $template[$i]['y']);
+            
+            if ($usersShift && is_array($usersShift) && count($usersShift) > 1) {
+                $shift = $usersShift;
+            } else {
+                $shift = array($template[$i]['x'], $template[$i]['y']);
+            }
+            $posX += $prevImage + $shift[0];
+            $posY = $shift[1];
+            if ($posX < 0) {
+                $posX = 0;
+            }
+            if ($posX + $image->getWidth() > $baseImage->getWidth()) {
+                $posX = $baseImage->getWidth() - $image->getWidth();
+            }
+            if ($posY < 0) {
+                $posY = 0;
+            }
+            $baseImage->addImage($image, $posX, $posY);
             $xDst += $image->getWidth() + rand(5, 15);
             $i++;
+            $prevImage = $image->getWidth();
         }
         $path = $this->_pathForImages.  uniqid();
         $baseImage->save($path);

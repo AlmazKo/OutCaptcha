@@ -18,13 +18,14 @@ require_once '../autoload.php';
 if (!$_POST) {
     $options = new Options();
     $options->generatedCaptchaPath = '/tmp/outcaptcha/';
+    $options->imagesProvider = 'Google';
     $options->captchaBaseImage = array(460, 200);
     $captcha = new OutCaptcha($options);
-    $dic = new Dictionary('ru');
+    $dic = new Dictionary('en');
     list($question, $answer) = $dic->getRandom();
     $decorator = function(Image $image){
         $image->addBorder(5);
-        $image->rotate(rand(-10,10));
+        return array(rand(-9, 29), rand(-10, 50));
     };
     $path = $captcha->generate($question, $decorator);
 
@@ -46,3 +47,5 @@ if (!$_POST) {
 
 $tpl = 'tpl/' . $tpl;
 $time = round(microtime(true) - $begin, 4) . ' sec';
+
+$addr = $_SERVER['PHP_SELF'];

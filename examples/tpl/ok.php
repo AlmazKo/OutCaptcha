@@ -1,3 +1,3 @@
 <p>Congratulations!</p>
-<img src="<?=$pathToImg?>" />
-<p>It is <b><?=$answer?></b> </p>
+<img src="<? echo $pathToImg?>" />
+<p>It is <b><? echo $answer?></b> </p>
